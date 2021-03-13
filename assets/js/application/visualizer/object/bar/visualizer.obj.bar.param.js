@@ -5,7 +5,7 @@ VISUALIZER.object.bar.param = class{
         this.width = param.width || 18
         this.height = param.height || 0
         this.seg = param.seg || 19
-        this.solid = param.solid || 200
-        this.step = param.step || 2
+        this.solid = param.solid || 180
+        this.step = param.step || 3
     }
 }
