@@ -26,10 +26,14 @@ VISUALIZER.object.bar.build = class{
         this.local = new THREE.Group()
 
         const degree = 360 / this.param.count
+        let solid = this.param.solid
 
         for(let i = 0; i < this.param.count; i++){
+            solid = i < this.param.count / 2 ? solid + this.param.step : solid - this.param.step
+            const color = `hsl(${solid}, 100%, 70%)`
+            
             const geometry = this.#createGeometry()
-            const material = this.#createMaterial()
+            const material = this.#createMaterial(color)
             const mesh = new THREE.Mesh(geometry, material)
 
             const deg = degree * i
@@ -47,6 +51,8 @@ VISUALIZER.object.bar.build = class{
         const count = geometry.attributes.position.count
         const array = geometry.attributes.position.array
 
+        geometry.origin = []
+
         const deg = 180 / (count / 2 - 1)
         const radius = this.param.width / 2
 
@@ -56,18 +62,33 @@ VISUALIZER.object.bar.build = class{
             const x = Math.cos(degree * RADIAN) * radius
             const y = Math.sin(degree * RADIAN) * radius
 
-            if(i < count / 2) console.log(index)
-
             array[i * 3] = x
             array[i * 3 + 1] = i < count / 2 ? y + this.param.height / 2 : y - this.param.height / 2
+            geometry.origin[i] = i < count / 2 ? y + this.param.height / 2 : y - this.param.height / 2
         }
 
         return geometry
     }
-    #createMaterial(){
+    #createMaterial(color){
         return new THREE.MeshBasicMaterial({
-            color: 0xffffff,
+            color: color,
             // wireframe: true
         })
     }
+
+
+    // animate
+    animate(buf){
+        this.local.children.forEach((mesh, i) => {
+            const origin = mesh.geometry.origin
+            const position = mesh.geometry.attributes.position
+            const array = position.array
+
+            for(let j = position.count / 2; j < position.count; j++){
+                array[j * 3 + 1] = origin[j] - buf[i] * 50
+            }
+
+            position.needsUpdate = true
+        })
+    } 
 }

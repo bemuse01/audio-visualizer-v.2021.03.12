@@ -31,21 +31,23 @@ new Vue({
             }
         },
         renderThree(){
-            for(let i in COMP) {
-                if(COMP[i].animate === undefined) continue
-                COMP[i].animate(COMP.app)
-            }
+            // for(let i in COMP) {
+            //     if(COMP[i].animate === undefined) continue
+            //     COMP[i].animate(COMP.app, COMP.audio.buf)
+            // }
+            COMP.audio.animate()
+            COMP.visualizer.animate(COMP.app, COMP.audio.buf)
         },
         createObject(app){
             this.createAudio()
-            this.createBar()
+            this.createVisualizer()
         },
         createAudio(){
             COMP.audio = new AUDIO.build('assets/src/LiSA - Unlasting.mp3')
 
             window.addEventListener('click', () => COMP.audio.play(), false)
         },
-        createBar(){
+        createVisualizer(){
             COMP.visualizer = new VISUALIZER.object.build()
         },
 

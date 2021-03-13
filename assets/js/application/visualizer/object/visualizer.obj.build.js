@@ -49,14 +49,14 @@ VISUALIZER.object.build = class{
         this.#createBar()
     }
     #createBar(){
-        new VISUALIZER.object.bar.build(this.group.bar)
+        this.bar = new VISUALIZER.object.bar.build(this.group.bar)
     }
 
 
     // animate
-    animate(app){
+    animate(app, buf){
         this.#render(app)
-        this.#animateObject()
+        this.#animateObject(buf)
     }
     #render(app){
         const rect = this.element.getBoundingClientRect()
@@ -71,7 +71,8 @@ VISUALIZER.object.build = class{
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
     }
-    #animateObject(){
+    #animateObject(buf){
+        this.bar.animate(buf)
     }
 
 

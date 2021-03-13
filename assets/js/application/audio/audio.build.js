@@ -49,10 +49,11 @@ AUDIO.build = class{
         this.analyser.getByteFrequencyData(this.audioData)
 
         const start = Math.floor(1 / this.param.fps * this.context.sampleRate)
-        // const sample = [...this.audioData.slice(start)]
-        const sample = this.audioData.slice(start)
+        const sample = [...this.audioData.slice(start)]
+        // const sample = this.audioData.slice(start)
 
-        this.buf = windowing.kaiser(sample, 1.75).slice(0, this.param.display)
+        // this.buf = windowing.kaiser(sample, 1.75).slice(0, this.param.display)
+        this.buf = windowing.kaiser(sample, 1.6).slice(0, this.param.display)
 
         const median = AUDIO.method.median(this.buf)
 
