@@ -14,7 +14,7 @@ VISUALIZER.object.bar.build = class{
 
     // add
     #add(group){
-        group.add(this.mesh)
+        group.add(this.local)
     }
 
 
@@ -23,11 +23,24 @@ VISUALIZER.object.bar.build = class{
         this.#createMesh()
     }
     #createMesh(){
-        const geometry = this.#createGeometry()
-        const material = this.#createMaterial()
-        this.mesh = new THREE.Mesh(geometry, material)
+        this.local = new THREE.Group()
 
-        console.log(geometry)
+        const degree = 360 / this.param.count
+
+        for(let i = 0; i < this.param.count; i++){
+            const geometry = this.#createGeometry()
+            const material = this.#createMaterial()
+            const mesh = new THREE.Mesh(geometry, material)
+
+            const deg = degree * i
+            const x = Math.cos(deg * RADIAN) * this.param.radius
+            const y = Math.sin(deg * RADIAN) * this.param.radius
+
+            mesh.position.set(x, y, 0)
+            mesh.rotation.z = (90 + deg) * RADIAN
+
+            this.local.add(mesh)
+        }
     }
     #createGeometry(){
         const geometry = new THREE.PlaneGeometry(this.param.width, this.param.height, this.param.seg)
