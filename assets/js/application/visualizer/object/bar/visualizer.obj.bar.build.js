@@ -42,6 +42,7 @@ VISUALIZER.object.bar.build = class{
 
             mesh.position.set(x, y, 0)
             mesh.rotation.z = (90 + deg) * RADIAN
+            mesh.layers.set(PROCESS)
 
             this.local.add(mesh)
         }

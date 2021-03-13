@@ -1,17 +1,18 @@
 VISUALIZER.object.build = class{
-    constructor(){
-        this.#init()
+    constructor(app){
+        this.#init(app)
         this.#create()
         this.#add()
     }
 
 
     // init
-    #init(){
+    #init(app){
         this.param = new VISUALIZER.object.param()
 
         this.#initGroup()
         this.#initRenderObject()
+        this.#initComposer(app)
     }
     #initGroup(){
         this.group = {
@@ -33,6 +34,33 @@ VISUALIZER.object.build = class{
         
         // this.width = METHOD.getVisibleWidth(this.camera, 0)
         // this.height = METHOD.getVisibleHeight(this.camera, 0)
+    }
+    #initComposer(app){
+        this.bloom = this.param.bloom
+
+        const {right, left, bottom, top} = this.element.getBoundingClientRect()
+        const width = right - left
+        const height = bottom - top
+        
+        this.composer = new THREE.EffectComposer(app.renderer)
+        this.composer.setSize(width, height)
+
+        const renderScene = new THREE.RenderPass(this.scene, this.camera)
+
+        const copyShader = new THREE.ShaderPass(THREE.CopyShader)
+        copyShader.renderToScreen = true
+
+        const filmPass = new THREE.FilmPass(0, 0, 0, false)
+
+        const bloomPass = new THREE.BloomPass(this.bloom)
+
+        this.fxaa = new THREE.ShaderPass(THREE.FXAAShader)
+        this.fxaa.uniforms['resolution'].value.set(1 / width, 1 / height)
+
+        this.composer.addPass(renderScene)
+        this.composer.addPass(bloomPass)
+        this.composer.addPass(filmPass)
+        this.composer.addPass(this.fxaa)
     }
 
 
@@ -68,7 +96,17 @@ VISUALIZER.object.build = class{
         app.renderer.setViewport(left, bottom, width, height)
         app.renderer.setScissor(left, bottom, width, height)
 
-        this.camera.lookAt(this.scene.position)
+        // this.camera.lookAt(this.scene.position)
+        // app.renderer.render(this.scene, this.camera)
+
+        app.renderer.autoClear = false
+        app.renderer.clear()
+
+        this.camera.layers.set(PROCESS)
+        this.composer.render()
+
+        app.renderer.clearDepth()
+        this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
     }
     #animateObject(buf){
@@ -84,6 +122,8 @@ VISUALIZER.object.build = class{
 
         this.camera.aspect = width / height
         this.camera.updateProjectionMatrix()
+
+        this.fxaa.uniforms['resolution'].value.set(1 / width, 1 / height)
 
         // this.width = METHOD.getVisibleWidth(this.camera, 0)
         // this.height = METHOD.getVisibleHeight(this.camera, 0)
