@@ -11,3 +11,19 @@ canvas{
     top: 0;
     left: 0;
 }
+
+
+/* visualizer */
+div.visualizer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vmin;
+    height: 80vmin;
+}
+div.visualizer-object{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}

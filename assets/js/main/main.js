@@ -33,16 +33,20 @@ new Vue({
         renderThree(){
             for(let i in COMP) {
                 if(COMP[i].animate === undefined) continue
-                COMP[i].animate()
+                COMP[i].animate(COMP.app)
             }
         },
         createObject(app){
             this.createAudio()
+            this.createBar()
         },
         createAudio(){
             COMP.audio = new AUDIO.build('assets/src/LiSA - Unlasting.mp3')
 
             window.addEventListener('click', () => COMP.audio.play(), false)
+        },
+        createBar(){
+            COMP.visualizer = new VISUALIZER.object.build()
         },
 
 
