@@ -45,7 +45,7 @@ VISUALIZER.object.build = class{
         this.composer = new THREE.EffectComposer(app.renderer)
         this.composer.setSize(width, height)
 
-        const renderScene = new THREE.RenderPass(this.scene, this.camera)
+        const renderPass = new THREE.RenderPass(this.scene, this.camera)
 
         const copyShader = new THREE.ShaderPass(THREE.CopyShader)
         copyShader.renderToScreen = true
@@ -55,9 +55,9 @@ VISUALIZER.object.build = class{
         const bloomPass = new THREE.BloomPass(this.bloom)
 
         this.fxaa = new THREE.ShaderPass(THREE.FXAAShader)
-        this.fxaa.uniforms['resolution'].value.set(1 / width, 1 / height)
+        this.fxaa.uniforms['resolution'].value.set(1 / (width * RATIO), 1 / (height * RATIO))
 
-        this.composer.addPass(renderScene)
+        this.composer.addPass(renderPass)
         this.composer.addPass(bloomPass)
         this.composer.addPass(filmPass)
         this.composer.addPass(this.fxaa)
@@ -123,7 +123,7 @@ VISUALIZER.object.build = class{
         this.camera.aspect = width / height
         this.camera.updateProjectionMatrix()
 
-        this.fxaa.uniforms['resolution'].value.set(1 / width, 1 / height)
+        this.fxaa.uniforms['resolution'].value.set(1 / (width * RATIO), 1 / (height * RATIO))
 
         // this.width = METHOD.getVisibleWidth(this.camera, 0)
         // this.height = METHOD.getVisibleHeight(this.camera, 0)

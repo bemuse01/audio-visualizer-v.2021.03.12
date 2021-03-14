@@ -26,11 +26,14 @@ VISUALIZER.object.bar.build = class{
         this.local = new THREE.Group()
 
         const degree = 360 / this.param.count
-        let solid = this.param.solid
+        const solid = this.param.solid
+        const step = this.param.step
 
         for(let i = 0; i < this.param.count; i++){
-            solid = i < this.param.count / 2 ? solid + this.param.step : solid - this.param.step
-            const color = `hsl(${solid}, 100%, 70%)`
+            // solid = i < this.param.count / 2 ? solid + this.param.step : solid - this.param.step
+            const index = i % (this.param.count / 2)
+            const s = i < this.param.count / 2 ? solid.top + step * index : solid.bottom - step * index
+            const color = `hsl(${s}, 100%, 70%)`
             
             const geometry = this.#createGeometry()
             const material = this.#createMaterial(color)
@@ -46,6 +49,8 @@ VISUALIZER.object.bar.build = class{
 
             this.local.add(mesh)
         }
+
+        this.local.rotation.z = 120 * RADIAN
     }
     #createGeometry(){
         const geometry = new THREE.PlaneGeometry(this.param.width, this.param.height, this.param.seg)
@@ -73,6 +78,8 @@ VISUALIZER.object.bar.build = class{
     #createMaterial(color){
         return new THREE.MeshBasicMaterial({
             color: color,
+            transparent: true,
+            opacity: 1.0
             // wireframe: true
         })
     }

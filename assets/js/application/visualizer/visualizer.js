@@ -1,6 +1,7 @@
 const VISUALIZER = {
     element: {},
     object: {
-        bar: {}
+        bar: {},
+        back: {}
     }
 }
