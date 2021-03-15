@@ -75,12 +75,6 @@ VISUALIZER.object.back.build = class{
         return geometry
     }
     #createMaterial(color){
-        // return new THREE.MeshBasicMaterial({
-        //     color: color,
-        //     transparent: true,
-        //     opacity: 0.5
-        //     // wireframe: true
-        // })
         return new THREE.ShaderMaterial({
             vertexShader: VISUALIZER.object.back.shader.vertex,
             fragmentShader: VISUALIZER.object.back.shader.fragment,
@@ -92,8 +86,12 @@ VISUALIZER.object.back.build = class{
                 origin: {
                     value: new THREE.Vector3(0, this.param.height, 0)
                 },
-                limitDist:{
-                    value: 800
+                limitDist: {
+                    // value: 670
+                    value: 500
+                },
+                minOpacity: {
+                    value: 0.5
                 }
             }
         })
@@ -101,6 +99,18 @@ VISUALIZER.object.back.build = class{
 
 
     // animate
-    animate(buf){
+    animate(buf, min, max){
+        this.local.children.forEach((mesh, i) => {
+            const material = mesh.material
+
+            let o = METHOD.normalize(buf[i], 0, 0.5, min, max)
+            o = isNaN(o) ? 0 : o
+
+            let d = METHOD.normalize(buf[i], 0, 150, min, max)
+            d = isNaN(d) ? 0 : d
+
+            material.uniforms['minOpacity'].value = 0.5 + o
+            material.uniforms['limitDist'].value = 500 + d
+        })
     } 
 }

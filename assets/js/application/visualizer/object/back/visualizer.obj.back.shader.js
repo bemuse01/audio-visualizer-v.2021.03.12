@@ -11,9 +11,10 @@ VISUALIZER.object.back.shader = {
         uniform vec3 origin;
         uniform vec3 color;
         uniform float limitDist;
+        uniform float minOpacity;
         void main() {
             float dist = clamp(length(vPos - origin), 0.0, limitDist);
-            float opacity = 0.6 - dist / limitDist;
+            float opacity = minOpacity - (dist / limitDist) * minOpacity;
             gl_FragColor = vec4(color, opacity);
         }
     `

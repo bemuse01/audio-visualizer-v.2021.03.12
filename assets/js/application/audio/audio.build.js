@@ -60,6 +60,9 @@ AUDIO.build = class{
         for(let i = 0; i < this.buf.length; i++){
             this.buf[i] = Math.max(0, this.buf[i] - median)
         }
+
+        this.max = Math.max(...this.buf)
+        this.min = Math.min(...this.buf)
     }
 
 

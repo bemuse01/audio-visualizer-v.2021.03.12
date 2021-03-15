@@ -33,7 +33,7 @@ new Vue({
         renderThree(){
             for(let i in COMP) {
                 if(COMP[i].animate === undefined) continue
-                COMP[i].animate(COMP.app, COMP.audio.buf)
+                COMP[i].animate(COMP.app, COMP.audio.buf, COMP.audio.min, COMP.audio.max)
             }
             // COMP.audio.animate()
             // COMP.visualizer.animate(COMP.app, COMP.audio.buf)

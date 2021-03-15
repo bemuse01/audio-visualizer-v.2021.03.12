@@ -86,9 +86,9 @@ VISUALIZER.object.build = class{
 
 
     // animate
-    animate(app, buf){
+    animate(app, buf, min, max){
         this.#render(app)
-        this.#animateObject(buf)
+        this.#animateObject(buf, min, max)
     }
     #render(app){
         const rect = this.element.getBoundingClientRect()
@@ -113,8 +113,9 @@ VISUALIZER.object.build = class{
         this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
     }
-    #animateObject(buf){
+    #animateObject(buf, min, max){
         this.bar.animate(buf)
+        this.back.animate(buf, min, max)
     }
 
 
