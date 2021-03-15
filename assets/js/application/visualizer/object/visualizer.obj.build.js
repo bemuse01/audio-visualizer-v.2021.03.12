@@ -75,9 +75,13 @@ VISUALIZER.object.build = class{
     // create
     #create(){
         this.#createBar()
+        this.#createBack()
     }
     #createBar(){
         this.bar = new VISUALIZER.object.bar.build(this.group.bar)
+    }
+    #createBack(){
+        this.back = new VISUALIZER.object.back.build(this.group.back)
     }
 
 

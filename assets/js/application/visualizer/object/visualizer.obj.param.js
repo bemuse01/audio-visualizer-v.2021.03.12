@@ -4,6 +4,6 @@ VISUALIZER.object.param = class{
         this.near = param.near || 0.1
         this.far = param.far || 10000
         this.pos = param.pos || 1000
-        this.bloom = param.bloom || 1.4
+        this.bloom = param.bloom || 1.0
     }
 }
