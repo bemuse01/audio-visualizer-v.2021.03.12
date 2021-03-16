@@ -1,0 +1,1 @@
+VISUALIZER.object.progress.method = {}

@@ -33,7 +33,7 @@ new Vue({
         renderThree(){
             for(let i in COMP) {
                 if(COMP[i].animate === undefined) continue
-                COMP[i].animate(COMP.app, COMP.audio.buf, COMP.audio.min, COMP.audio.max)
+                COMP[i].animate(COMP.app, COMP.audio)
             }
             // COMP.audio.animate()
             // COMP.visualizer.animate(COMP.app, COMP.audio.buf)
@@ -43,7 +43,7 @@ new Vue({
             this.createVisualizer(app)
         },
         createAudio(){
-            COMP.audio = new AUDIO.build('assets/src/LiSA - Unlasting.mp3')
+            COMP.audio = new AUDIO.build('assets/src/Hiroyuki Sawano ft. ASCA & mizuki - Unti-L.mp3')
 
             window.addEventListener('click', () => COMP.audio.play(), false)
         },

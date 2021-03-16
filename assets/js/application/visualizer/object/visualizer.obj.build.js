@@ -77,7 +77,7 @@ VISUALIZER.object.build = class{
     #create(){
         this.#createBar()
         this.#createBack()
-        // this.#createProgress()
+        this.#createProgress()
     }
     #createBar(){
         this.bar = new VISUALIZER.object.bar.build(this.group.bar)
@@ -91,9 +91,9 @@ VISUALIZER.object.build = class{
 
 
     // animate
-    animate(app, buf, min, max){
+    animate(app, audio){
         this.#render(app)
-        this.#animateObject(buf, min, max)
+        this.#animateObject(audio)
     }
     #render(app){
         const rect = this.element.getBoundingClientRect()
@@ -118,9 +118,10 @@ VISUALIZER.object.build = class{
         this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
     }
-    #animateObject(buf, min, max){
-        this.bar.animate(buf)
-        this.back.animate(buf, min, max)
+    #animateObject(audio){
+        this.bar.animate(audio.buf)
+        this.back.animate(audio.buf, audio.min, audio.max)
+        this.progress.animate(audio)
     }
 
 
