@@ -88,10 +88,10 @@ VISUALIZER.object.back.build = class{
                 },
                 limitDist: {
                     // value: 670
-                    value: 500
+                    value: this.param.limitDist.static
                 },
                 minOpacity: {
-                    value: 0.5
+                    value: this.param.opacity.static
                 }
             }
         })
@@ -103,14 +103,17 @@ VISUALIZER.object.back.build = class{
         this.local.children.forEach((mesh, i) => {
             const material = mesh.material
 
-            let o = METHOD.normalize(buf[i], 0, 0.5, min, max)
-            o = isNaN(o) ? 0 : o
+            // let o = METHOD.normalize(buf[i], 0, 0.6, min, max)
+            // o = isNaN(o) ? 0 : o
 
-            let d = METHOD.normalize(buf[i], 0, 150, min, max)
-            d = isNaN(d) ? 0 : d
+            // let d = METHOD.normalize(buf[i], 0, 100, min, max)
+            // d = isNaN(d) ? 0 : d
 
-            material.uniforms['minOpacity'].value = 0.5 + o
-            material.uniforms['limitDist'].value = 500 + d
+            // material.uniforms['minOpacity'].value = 0.4 + o
+            // material.uniforms['limitDist'].value = 475 + d
+
+            material.uniforms['minOpacity'].value = this.param.opacity.static + Math.min(buf[i] * this.param.opacity.rd, this.param.opacity.dynamic)
+            material.uniforms['limitDist'].value = this.param.limitDist.static + Math.min(buf[i] * this.param.limitDist.rd, this.param.limitDist.dynamic)
         })
-    } 
+    }
 }

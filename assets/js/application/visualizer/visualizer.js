@@ -2,6 +2,7 @@ const VISUALIZER = {
     element: {},
     object: {
         bar: {},
-        back: {}
+        back: {},
+        progress: {}
     }
 }

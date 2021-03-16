@@ -10,5 +10,15 @@ VISUALIZER.object.back.param = class{
             bottom: 290
         }
         this.step = param.step || 3
+        this.limitDist = param.limitDist || {
+            static: 475,
+            dynamic: 100,
+            rd: 50
+        }
+        this.opacity = param.opacity || {
+            static: 0.4,
+            dynamic: 0.6,
+            rd: 0.3
+        }
     }
 }
