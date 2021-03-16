@@ -40,17 +40,17 @@ VISUALIZER.object.progress.build = class{
         return new THREE.MeshBasicMaterial({
             color: 0xffffff,
             transparent: true,
-            opacity: 0.5
+            opacity: 0.6
         })
     }
 
 
     // animate
-    animate(aud){
+    animate(audio){
         const geometry = this.mesh.geometry
         const position = geometry.attributes.position
         
-        const draw = Math.floor(aud.audio.currentTime / aud.audio.duration * (position.count / 2))
+        const draw = Math.floor(audio.currentTime / audio.duration * (position.count / 2))
         geometry.setDrawRange(0, draw * 3 * 2)
 
         position.needsUpdate = true

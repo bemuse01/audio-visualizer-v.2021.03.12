@@ -16,8 +16,8 @@ VISUALIZER.object.back.param = class{
             rd: 50
         }
         this.opacity = param.opacity || {
-            static: 0.4,
-            dynamic: 0.6,
+            static: 0.5,
+            dynamic: 0.5,
             rd: 0.3
         }
     }

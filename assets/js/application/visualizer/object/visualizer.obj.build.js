@@ -91,7 +91,9 @@ VISUALIZER.object.build = class{
 
 
     // animate
-    animate(app, audio){
+    animate(param){
+        const {app, audio} = param
+
         this.#render(app)
         this.#animateObject(audio)
     }
@@ -118,9 +120,11 @@ VISUALIZER.object.build = class{
         this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
     }
-    #animateObject(audio){
-        this.bar.animate(audio.buf)
-        this.back.animate(audio.buf, audio.min, audio.max)
+    #animateObject(aud){
+        const {buf, min, max, audio} = aud
+
+        this.bar.animate(buf)
+        this.back.animate(buf, min, max)
         this.progress.animate(audio)
     }
 

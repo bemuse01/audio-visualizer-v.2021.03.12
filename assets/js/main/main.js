@@ -31,12 +31,12 @@ new Vue({
             }
         },
         renderThree(){
+            const app = COMP.app, audio = COMP.audio
+
             for(let i in COMP) {
                 if(COMP[i].animate === undefined) continue
-                COMP[i].animate(COMP.app, COMP.audio)
+                COMP[i].animate({app, audio})
             }
-            // COMP.audio.animate()
-            // COMP.visualizer.animate(COMP.app, COMP.audio.buf)
         },
         createObject(app){
             this.createAudio()
