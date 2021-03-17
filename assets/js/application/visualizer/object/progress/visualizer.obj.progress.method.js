@@ -22,8 +22,6 @@ VISUALIZER.object.progress.method = {
             color[(i + half) * 3 + 2] = c.b
         }
 
-        console.log(color)
-
         return color
     }
 }

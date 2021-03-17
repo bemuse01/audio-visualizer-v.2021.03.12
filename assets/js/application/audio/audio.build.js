@@ -37,8 +37,6 @@ AUDIO.build = class{
         const bufferLength = this.analyser.frequencyBinCount
         
         this.audioData = new Uint8Array(bufferLength)
-
-        console.log(this.audioData)
     }
 
 
