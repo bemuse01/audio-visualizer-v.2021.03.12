@@ -45,7 +45,7 @@ new Vue({
         createAudio(){
             COMP.audio = new AUDIO.build('assets/src/Hiroyuki Sawano ft. ASCA & mizuki - Unti-L.mp3')
 
-            window.addEventListener('load', () => COMP.audio.play(), false)
+            window.addEventListener('click', () => COMP.audio.play(), false)
         },
         createVisualizer(app){
             COMP.visualizer = new VISUALIZER.object.build(app)
