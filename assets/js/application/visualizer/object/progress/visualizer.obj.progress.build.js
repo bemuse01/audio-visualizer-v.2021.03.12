@@ -28,19 +28,22 @@ VISUALIZER.object.progress.build = class{
         this.mesh = new THREE.Mesh(geometry, material)
         this.mesh.rotation.z = 90 * RADIAN
         this.mesh.scale.set(1, -1, 1)
+        this.mesh.layers.set(PROCESS)
     }
     #createGeometry(){
         const geometry = new THREE.RingGeometry(this.param.radius, this.param.radius + this.param.size, this.param.seg)
+        const color = VISUALIZER.object.progress.method.createColorAttr(this.param, geometry.attributes.position.count)
 
+        geometry.setAttribute('aColor', new THREE.BufferAttribute(color, 3))
         geometry.setDrawRange(0, 0)
 
         return geometry
     }
     #createMaterial(){
-        return new THREE.MeshBasicMaterial({
-            color: 0xffffff,
-            transparent: true,
-            opacity: 0.6
+        return new THREE.ShaderMaterial({
+            vertexShader: VISUALIZER.object.progress.shader.vertex,
+            fragmentShader: VISUALIZER.object.progress.shader.fragment,
+            transparent: true
         })
     }
 
