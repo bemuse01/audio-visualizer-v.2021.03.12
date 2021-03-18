@@ -126,7 +126,9 @@ VISUALIZER.object.build = class{
         app.renderer.render(this.scene, this.camera)
     }
     #animateObject(aud){
-        const {buf, min, max, audio} = aud
+        const {buf, min, max, audio, start} = aud
+
+        if(start) return
 
         this.bar.animate(buf)
         this.back.animate(buf, min, max)
