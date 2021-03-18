@@ -31,7 +31,7 @@ new Vue({
             }
         },
         renderThree(){
-            const app = COMP.app, audio = COMP.audio
+            const {app, audio} = COMP
 
             for(let i in COMP) {
                 if(COMP[i].animate === undefined) continue
