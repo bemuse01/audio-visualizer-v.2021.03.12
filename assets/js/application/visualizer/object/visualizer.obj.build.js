@@ -18,7 +18,8 @@ VISUALIZER.object.build = class{
         this.group = {
             back: new THREE.Group(),
             bar: new THREE.Group(),
-            progress: new THREE.Group()
+            progress: new THREE.Group(),
+            border: new THREE.Group()
         }
 
         this.build = new THREE.Group
@@ -78,6 +79,7 @@ VISUALIZER.object.build = class{
         this.#createBar()
         this.#createBack()
         this.#createProgress()
+        this.#createBorder()
     }
     #createBar(){
         this.bar = new VISUALIZER.object.bar.build(this.group.bar)
@@ -87,6 +89,9 @@ VISUALIZER.object.build = class{
     }
     #createProgress(){
         this.progress = new VISUALIZER.object.progress.build(this.group.progress)
+    }
+    #createBorder(){
+        new VISUALIZER.object.border.build(this.group.border)
     }
 
 

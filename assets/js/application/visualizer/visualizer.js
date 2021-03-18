@@ -3,6 +3,7 @@ const VISUALIZER = {
     object: {
         bar: {},
         back: {},
-        progress: {}
+        progress: {},
+        border: {}
     }
 }

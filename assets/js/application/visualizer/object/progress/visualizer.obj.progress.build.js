@@ -43,7 +43,10 @@ VISUALIZER.object.progress.build = class{
         return new THREE.ShaderMaterial({
             vertexShader: VISUALIZER.object.progress.shader.vertex,
             fragmentShader: VISUALIZER.object.progress.shader.fragment,
-            transparent: true
+            transparent: true,
+            uniforms: {
+                opacity: {value: this.param.opacity}
+            }
         })
     }
 

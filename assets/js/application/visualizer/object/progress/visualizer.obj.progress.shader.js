@@ -9,8 +9,9 @@ VISUALIZER.object.progress.shader = {
     `,
     fragment: `
         varying vec3 vColor;
+        uniform float opacity;
         void main() {
-            gl_FragColor = vec4(vColor, 0.9);
+            gl_FragColor = vec4(vColor, opacity);
         }
     `
 }
