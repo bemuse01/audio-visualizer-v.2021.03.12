@@ -33,7 +33,7 @@ VISUALIZER.object.border.build = class{
         const material = this.#createMaterial(key)
         const mesh = new THREE.Mesh(geometry, material)
         mesh.rotation.z = 90 * RADIAN
-        mesh.layers.set(PROCESS)
+        mesh.layers.set(this.param.layers[key])
         return mesh
     }
     #createGeometry(key){

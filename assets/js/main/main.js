@@ -2,7 +2,14 @@ new Vue({
     el: '#wrap',
     data(){
         return{
-            
+            element: {
+                visualizer: new VISUALIZER.element.build()
+            }
+        }
+    },
+    computed: {
+        visualizerDuration(){
+            return this.element.visualizer.duration
         }
     },
     mounted(){
@@ -25,9 +32,11 @@ new Vue({
             this.createObject(COMP.app)
         },
         resizeThree(){
+            const {app} = COMP
+
             for(let i in COMP) {
                 if(COMP[i].resize === undefined) continue
-                COMP[i].resize()
+                COMP[i].resize({app})
             }
         },
         renderThree(){
@@ -52,11 +61,16 @@ new Vue({
         },
 
 
+        // element
+        animateElement(){
+            const {audio} = COMP
+
+            this.element.visualizer.animate({audio})
+        },
+
+
         // event
         onWindowResize(){
-            WIDTH = window.innerWidth
-            HEIGHT = window.innerHeight
-
             this.resizeThree()
         },
 
@@ -64,6 +78,7 @@ new Vue({
         // render
         render(){
             this.renderThree()
+            this.animateElement()
         },
         animate(){
             this.render()

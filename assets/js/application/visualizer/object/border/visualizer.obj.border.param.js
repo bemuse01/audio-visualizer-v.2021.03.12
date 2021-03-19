@@ -15,8 +15,12 @@ VISUALIZER.object.border.param = class{
         }
         this.opacity = param.opacity || {
             thin: 1.0,
-            thick: 0.1
+            thick: 0.125
         }
         this.step = param.step || 3
+        this.layers = param.layers || {
+            thin: NORMAL,
+            thick: PROCESS
+        }
     }
 }

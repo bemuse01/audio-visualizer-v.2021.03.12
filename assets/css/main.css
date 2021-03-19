@@ -1,3 +1,9 @@
+@font-face{
+    src: url('../font/NotoSans-ExtraLight.ttf');
+    font-family: notoLight;
+}
+
+
 *{
     padding: 0;
     margin: 0;
@@ -10,6 +16,11 @@ canvas{
     position: absolute;
     top: 0;
     left: 0;
+}
+div#wrap{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
 }
 
 
@@ -26,4 +37,15 @@ div.visualizer-object{
     position: absolute;
     width: 100%;
     height: 100%;
+}
+div.visualizer-duration-wrap{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* color: #86ceff; */
+    color: white;
+    font-family: notoLight;
+    font-size: 8vmin;
+    letter-spacing: 0.5vmin;
 }

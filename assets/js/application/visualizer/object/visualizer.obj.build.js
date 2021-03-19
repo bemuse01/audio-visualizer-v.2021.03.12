@@ -137,7 +137,8 @@ VISUALIZER.object.build = class{
 
 
     // resize
-    resize(){
+    resize(param){
+        const {app} = param
         const rect = this.element.getBoundingClientRect()
         const width = rect.right - rect.left
         const height = rect.bottom - rect.top
@@ -147,7 +148,7 @@ VISUALIZER.object.build = class{
 
         this.fxaa.uniforms['resolution'].value.set(1 / (width * RATIO), 1 / (height * RATIO))
 
-        this.composer.setSize(WIDTH, HEIGHT)
+        this.composer.setSize(app.width, app.height)
 
         // this.width = METHOD.getVisibleWidth(this.camera, 0)
         // this.height = METHOD.getVisibleHeight(this.camera, 0)
