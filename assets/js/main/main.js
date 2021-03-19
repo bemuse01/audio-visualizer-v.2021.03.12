@@ -52,7 +52,7 @@ new Vue({
             this.createVisualizer(app)
         },
         createAudio(){
-            COMP.audio = new AUDIO.build('assets/src/Hiroyuki Sawano ft. ASCA & mizuki - Unti-L.mp3')
+            COMP.audio = new AUDIO.build('assets/src/Way Back Home.mp3')
 
             window.addEventListener('click', () => COMP.audio.play(), false)
         },
