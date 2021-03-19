@@ -48,4 +48,10 @@ div.visualizer-duration-wrap{
     font-family: notoLight;
     font-size: 8vmin;
     letter-spacing: 0.5vmin;
+    user-select: none;
+    /* filter: drop-shadow(0px 0px 6px rgba(188, 228, 255, 0.75)); */
+    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.75));
+}
+div.visualizer-duration-wrap span{
+    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.75));
 }
