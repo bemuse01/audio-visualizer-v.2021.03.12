@@ -52,7 +52,7 @@ new Vue({
             this.createVisualizer(app)
         },
         createAudio(){
-            COMP.audio = new AUDIO.build('assets/src/Way Back Home.mp3')
+            COMP.audio = new AUDIO.build('assets/src/Fairytale.mp3')
 
             window.addEventListener('click', () => COMP.audio.play(), false)
         },
