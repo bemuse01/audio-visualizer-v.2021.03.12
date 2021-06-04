@@ -1,12 +1,12 @@
 AUDIO.build = class{
     constructor(src = ''){
-        this.#init(src)
-        this.#create()
+        this.init(src)
+        this.create()
     }
 
 
     // init 
-    #init(src){
+    init(src){
         this.src = src
         this.start = true
         this.param = new AUDIO.param()
@@ -15,16 +15,16 @@ AUDIO.build = class{
 
 
     // create
-    #create(){
-        this.#createAudio()
+    create(){
+        this.createAudio()
     }
-    #createAudio(){
+    createAudio(){
         this.audio = new Audio()
         this.audio.loop = true
         this.audio.src = this.src
         this.audio.volume = 0.4
     }
-    #createContext(){
+    createContext(){
         this.context = new AudioContext()
         
 		const source = this.context.createMediaElementSource(this.audio)
@@ -67,7 +67,7 @@ AUDIO.build = class{
     // event
     play(){
         if(this.start){
-            this.#createContext()
+            this.createContext()
             this.audio.play()
             this.context.resume()
             this.start = false

@@ -1,28 +1,28 @@
 VISUALIZER.object.bar.build = class{
     constructor(group){
-        this.#init()
-        this.#create()
-        this.#add(group)
+        this.init()
+        this.create()
+        this.add(group)
     }
 
 
     // init
-    #init(){
+    init(){
         this.param = new VISUALIZER.object.bar.param()
     }
 
 
     // add
-    #add(group){
+    add(group){
         group.add(this.local)
     }
 
 
     // create
-    #create(){
-        this.#createMesh()
+    create(){
+        this.createMesh()
     }
-    #createMesh(){
+    createMesh(){
         this.local = new THREE.Group()
 
         const degree = 360 / this.param.count
@@ -35,8 +35,8 @@ VISUALIZER.object.bar.build = class{
             const s = i < this.param.count / 2 ? solid.top + step * index : solid.bottom - step * index
             const color = `hsl(${s}, 100%, 70%)`
             
-            const geometry = this.#createGeometry()
-            const material = this.#createMaterial(color)
+            const geometry = this.createGeometry()
+            const material = this.createMaterial(color)
             const mesh = new THREE.Mesh(geometry, material)
 
             const deg = degree * i
@@ -52,7 +52,7 @@ VISUALIZER.object.bar.build = class{
 
         this.local.rotation.z = 120 * RADIAN
     }
-    #createGeometry(){
+    createGeometry(){
         const geometry = new THREE.PlaneGeometry(this.param.width, this.param.height, this.param.seg)
         const count = geometry.attributes.position.count
         const array = geometry.attributes.position.array
@@ -75,7 +75,7 @@ VISUALIZER.object.bar.build = class{
 
         return geometry
     }
-    #createMaterial(color){
+    createMaterial(color){
         return new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,

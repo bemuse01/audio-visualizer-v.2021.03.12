@@ -1,14 +1,14 @@
 VISUALIZER.element.build = class{
     constructor(){
-        this.#create()
+        this.create()
     }
 
 
     // create
-    #create(){
-        this.#createVisualizerDuration()
+    create(){
+        this.createVisualizerDuration()
     }
-    #createVisualizerDuration(){
+    createVisualizerDuration(){
         this.duration = '0:00'
     }
 

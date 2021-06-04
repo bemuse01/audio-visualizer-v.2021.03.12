@@ -1,12 +1,12 @@
 APP.build = class{
     constructor(){
-        this.#init()
-        this.#create()
+        this.init()
+        this.create()
     }
 
 
     // init
-    #init(){
+    init(){
         this.wrap = document.getElementById('wrap')
 
         const {width, height} = this.wrap.getBoundingClientRect()
@@ -17,7 +17,7 @@ APP.build = class{
 
 
     // create
-    #create(){
+    create(){
         const canvas = document.querySelector('#canvas')
 
         this.scene = new THREE.Scene()
@@ -32,9 +32,9 @@ APP.build = class{
 
     // render
     animate(){
-        this.#render()
+        this.render()
     }
-    #render(){
+    render(){
         this.renderer.setScissorTest(false)
         this.renderer.clear()
         this.renderer.setScissorTest(true)

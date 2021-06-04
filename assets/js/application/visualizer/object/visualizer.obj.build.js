@@ -1,20 +1,20 @@
 VISUALIZER.object.build = class{
     constructor(app){
-        this.#init(app)
-        this.#create()
-        this.#add()
+        this.init(app)
+        this.create()
+        this.add()
     }
 
 
     // init
-    #init(app){
+    init(app){
         this.param = new VISUALIZER.object.param()
 
-        this.#initGroup()
-        this.#initRenderObject()
-        this.#initComposer(app)
+        this.initGroup()
+        this.initRenderObject()
+        this.initComposer(app)
     }
-    #initGroup(){
+    initGroup(){
         this.group = {
             back: new THREE.Group(),
             bar: new THREE.Group(),
@@ -24,7 +24,7 @@ VISUALIZER.object.build = class{
 
         this.build = new THREE.Group
     }
-    #initRenderObject(){
+    initRenderObject(){
         this.element = document.querySelector('.visualizer-object')
 
         const {width, height} = this.element.getBoundingClientRect()
@@ -37,7 +37,7 @@ VISUALIZER.object.build = class{
         // this.width = METHOD.getVisibleWidth(this.camera, 0)
         // this.height = METHOD.getVisibleHeight(this.camera, 0)
     }
-    #initComposer(app){
+    initComposer(app){
         this.bloom = this.param.bloom
 
         const {right, left, bottom, top} = this.element.getBoundingClientRect()
@@ -67,7 +67,7 @@ VISUALIZER.object.build = class{
 
 
     // add
-    #add(){
+    add(){
         for(let i in this.group) this.build.add(this.group[i])
         
         this.scene.add(this.build)
@@ -75,22 +75,22 @@ VISUALIZER.object.build = class{
 
 
     // create
-    #create(){
-        this.#createBar()
-        this.#createBack()
-        this.#createProgress()
-        this.#createBorder()
+    create(){
+        this.createBar()
+        this.createBack()
+        this.createProgress()
+        this.createBorder()
     }
-    #createBar(){
+    createBar(){
         this.bar = new VISUALIZER.object.bar.build(this.group.bar)
     }
-    #createBack(){
+    createBack(){
         this.back = new VISUALIZER.object.back.build(this.group.back)
     }
-    #createProgress(){
+    createProgress(){
         this.progress = new VISUALIZER.object.progress.build(this.group.progress)
     }
-    #createBorder(){
+    createBorder(){
         new VISUALIZER.object.border.build(this.group.border)
     }
 
@@ -99,10 +99,10 @@ VISUALIZER.object.build = class{
     animate(param){
         const {app, audio} = param
 
-        this.#render(app)
-        this.#animateObject(audio)
+        this.render(app)
+        this.animateObject(audio)
     }
-    #render(app){
+    render(app){
         const rect = this.element.getBoundingClientRect()
         const width = rect.right - rect.left
         const height = rect.bottom - rect.top
@@ -125,7 +125,7 @@ VISUALIZER.object.build = class{
         this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
     }
-    #animateObject(aud){
+    animateObject(aud){
         const {buf, min, max, audio, start} = aud
 
         if(start) return
