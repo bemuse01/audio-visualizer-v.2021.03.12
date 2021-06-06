@@ -4,6 +4,8 @@ new Vue({
         return{
             element: {
                 visualizer: new VISUALIZER.element.build()
+            },
+            arr: {
             }
         }
     },
