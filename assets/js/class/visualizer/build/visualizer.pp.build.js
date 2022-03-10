@@ -10,7 +10,7 @@ export default class{
         this.texture = renderTarget.texture
 
         this.param = {
-            exposure: 0.2
+            exposure: 0.22
         }
 
         this.init(group)

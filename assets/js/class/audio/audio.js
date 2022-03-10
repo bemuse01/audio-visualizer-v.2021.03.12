@@ -4,7 +4,7 @@ export default class{
     constructor(){
         this.param = {
             fft: 2 ** 14,
-            smoothingTimeConstant: 0.6,
+            smoothingTimeConstant: 0.5,
             src: 'assets/src/Fairytale.mp3'
         }
 

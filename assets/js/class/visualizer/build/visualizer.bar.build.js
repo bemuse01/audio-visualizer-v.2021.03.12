@@ -15,13 +15,13 @@ export default class{
                 top: 180,
                 bottom: 290
             },
-            audioStep: 25,
+            audioStep: 100,
             step: 3,
             smooth: 0.2,
-            boost: 10
+            boost: 30
         }
 
-        this.xs = Array.from({length: this.param.count}, (_, i) => i * 0.8)
+        this.xs = Array.from({length: this.param.count}, (_, i) => i * 1)
 
         this.init(group)
     }
@@ -138,8 +138,11 @@ export default class{
         const spline = new Spline(xs, ys)
         
         for(let i = 0; i < len; i++){
-            temp.push(spline.at(i * this.param.smooth) * this.param.boost)
+            temp.push(spline.at(i * this.param.smooth))
         }
+
+        const avg = (temp.reduce((x, y) => x + y) / len) * 0.9
+        temp = temp.map(e => Math.max(0, e - avg) * this.param.boost)
 
         return temp
     }
