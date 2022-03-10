@@ -1,12 +1,14 @@
 import * as THREE from '../../../lib/three.module.js'
 
 export default class{
-    constructor({group}){
+    constructor({group, rtScene}){
+        this.rtScene = rtScene
+
         this.param = {
             count: 80,
-            radius: 310,
-            width: 16,
-            height: 4,
+            radius: 31,
+            width: 1.6,
+            height: 0.4,
             seg: 19,
             solid: {
                 top: 180,
@@ -59,7 +61,8 @@ export default class{
 
         this.local.rotation.z = 120 * RADIAN
 
-        group.add(this.local)
+        // group.add(this.local)
+        this.rtScene.add(this.local)
     }
     createGeometry(){
         const geometry = new THREE.PlaneGeometry(this.param.width, this.param.height, this.param.seg)
@@ -95,14 +98,18 @@ export default class{
 
 
     // animate
-    animate(buf){
+    animate({audioData}){
+        if(!audioData) return
+
+        const sample = Array.from({length: this.param.count}, (_, i) => audioData[i * this.param.step]).map(e => e / 255 * 10)
+
         this.local.children.forEach((mesh, i) => {
             const origin = mesh.geometry.origin
             const position = mesh.geometry.attributes.position
             const array = position.array
 
             for(let j = position.count / 2; j < position.count; j++){
-                array[j * 3 + 1] = origin[j] - buf[i] * 50
+                array[j * 3 + 1] = origin[j] - sample[i]
             }
 
             position.needsUpdate = true

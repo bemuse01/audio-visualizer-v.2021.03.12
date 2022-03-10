@@ -1,3 +1,5 @@
+import PublicMethod from '../../method/method.js'
+
 export default class{
     constructor(){
         this.param = {
@@ -69,6 +71,20 @@ export default class{
         if(!this.analyser) return
 
         this.analyser.getByteFrequencyData(this.audioData)
+
+        // const start = Math.floor(1 / this.param.fps * this.context.sampleRate)
+        // const sample = [...this.audioData.slice(start)]
+
+        // this.buf = windowing.kaiser(sample, 1.6).slice(0, this.param.display)
+
+        // const median = PublicMethod.median(this.buf)
+
+        // for(let i = 0; i < this.buf.length; i++){
+        //     this.buf[i] = Math.max(0, this.buf[i] - median)
+        // }
+
+        // this.max = Math.max(...this.buf)
+        // this.min = Math.min(...this.buf)
     }
 
 

@@ -3,10 +3,14 @@ import Method from '../method/visualizer.progress.method.js'
 import Shader from '../shader/visualizer.progress.shader.js'
 
 export default class{
-    constructor({group}){
+    constructor({group, rtScene}){
+        this.rtScene = rtScene
+
+        console.log(rtScene)
+
         this.param = {
-            radius: 258 + 6,
-            size: 20,
+            radius: 25.8 + 0.6,
+            size: 2.0,
             seg: 1999,
             count: 80,
             solid: {
@@ -39,9 +43,10 @@ export default class{
         this.mesh = new THREE.Mesh(geometry, material)
         this.mesh.rotation.z = 90 * RADIAN
         this.mesh.scale.set(1, -1, 1)
-        this.mesh.layers.set(PROCESS)
+        // this.mesh.layers.set(PROCESS)
 
-        group.add(this.mesh)
+        // group.add(this.mesh)
+        // this.rtScene.add(this.mesh)
     }
     createGeometry(){
         const geometry = new THREE.RingGeometry(this.param.radius, this.param.radius + this.param.size, this.param.seg)
@@ -65,11 +70,11 @@ export default class{
 
 
     // animate
-    animate(audio){
+    animate({currentTime, duration}){
         const geometry = this.mesh.geometry
         const position = geometry.attributes.position
         
-        const draw = Math.floor(audio.currentTime / audio.duration * (position.count / 2))
+        const draw = Math.floor(currentTime / duration * (position.count / 2))
         geometry.setDrawRange(0, draw * 3 * 2)
 
         position.needsUpdate = true

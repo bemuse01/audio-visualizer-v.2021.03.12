@@ -10,9 +10,9 @@ import {AdditiveBlendingShader} from '../../postprocess/AdditiveBlendingShader.j
 
 import PublicMethod from '../../method/method.js'
 
-import BACK from './build/visualizer.back.build.js'
 import BAR from './build/visualizer.bar.build.js'
 import PROGRESS from './build/visualizer.progress.build.js'
+import PP from './build/visualizer.pp.build.js'
 
 export default class{
     constructor({app}){
@@ -20,14 +20,15 @@ export default class{
             fov: 60,
             near: 0.1,
             far: 10000,
-            pos: 1100,
+            pos: 100,
             bloom: 2.5
         }
 
         this.modules = {
             // back: BACK,
             bar: BAR,
-            // progress: PROGRESS
+            progress: PROGRESS,
+            pp: PP
         }
         this.group = {}
         this.comp = {}
@@ -41,6 +42,7 @@ export default class{
     init(app){
         this.initGroup()
         this.initRenderObject()
+        this.initRenderTarget()
         // this.initComposer(app)
         this.create(app)
         this.add()
@@ -71,6 +73,17 @@ export default class{
                 h: PublicMethod.getVisibleHeight(this.camera, 0)
             }
         }
+    }
+    initRenderTarget(){
+        const {w, h} = this.size.el
+
+        this.renderTarget = new THREE.WebGLRenderTarget(w, h, {format: THREE.RGBAFormat})
+        this.renderTarget.samples = 2048
+
+        this.rtCamera = new THREE.PerspectiveCamera(this.param.fov, w / h, this.param.near, this.param.far)
+        this.rtCamera.position.z = this.param.pos
+
+        this.rtScene = new THREE.Scene()
     }
     initComposer(app){
         const {right, left, bottom, top} = this.element.getBoundingClientRect()
@@ -114,7 +127,7 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size, ...this.comp})
+            this.comp[module] = new instance({group, size: this.size, ...this.comp, renderTarget: this.renderTarget, rtScene: this.rtScene})
         }
     }
 
@@ -137,6 +150,11 @@ export default class{
         this.camera.lookAt(this.scene.position)
         app.renderer.render(this.scene, this.camera)
 
+        app.renderer.setRenderTarget(this.renderTarget)
+        app.renderer.clear()
+        app.renderer.render(this.rtScene, this.rtCamera)
+        app.renderer.setRenderTarget(null)
+
         // app.renderer.autoClear = false
         // app.renderer.clear()
 
@@ -149,11 +167,11 @@ export default class{
     }
     animateObject(app, audio){
         const {renderer} = app
-        const {audioData, audioDataAvg} = audio
+        const {audioData, currentTime, duration} = audio
 
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({renderer, audioData, audioDataAvg})
+            this.comp[i].animate({renderer, audioData, currentTime, duration})
         }
     }
 
