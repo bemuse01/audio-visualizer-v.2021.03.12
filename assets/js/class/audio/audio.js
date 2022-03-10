@@ -1,4 +1,4 @@
-import PublicMethod from '../../method/method.js'
+// import PublicMethod from '../../method/method.js'
 
 export default class{
     constructor(){
