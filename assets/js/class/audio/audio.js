@@ -5,7 +5,7 @@ export default class{
         this.param = {
             fft: 2 ** 14,
             smoothingTimeConstant: 0.5,
-            src: 'assets/src/Fairytale.mp3'
+            src: 'assets/src/Mirage.mp3'
         }
 
         this.start = true
