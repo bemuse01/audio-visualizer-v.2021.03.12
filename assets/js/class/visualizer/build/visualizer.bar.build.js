@@ -1,4 +1,5 @@
 import * as THREE from '../../../lib/three.module.js'
+import Spline from '../../../lib/cubic-spline.js'
 
 export default class{
     constructor({group, rtScene}){
@@ -6,7 +7,7 @@ export default class{
 
         this.param = {
             count: 80,
-            radius: 31,
+            radius: 29.5,
             width: 1.6,
             height: 1.2,
             seg: 19,
@@ -14,8 +15,13 @@ export default class{
                 top: 180,
                 bottom: 290
             },
-            step: 3
+            audioStep: 25,
+            step: 3,
+            smooth: 0.2,
+            boost: 10
         }
+
+        this.xs = Array.from({length: this.param.count}, (_, i) => i * 0.8)
 
         this.init(group)
     }
@@ -102,7 +108,8 @@ export default class{
     animate({audioData}){
         if(!audioData) return
 
-        const sample = Array.from({length: this.param.count}, (_, i) => audioData[i * this.param.step]).map(e => e / 255 * 10)
+        const sample = Array.from({length: this.param.count}, (_, i) => audioData[i * this.param.audioStep]).map(e => e / 255)
+        const buffer = this.createAudioBuffer({sample})
 
         this.local.children.forEach((mesh, i) => {
             const origin = mesh.geometry.origin
@@ -110,10 +117,30 @@ export default class{
             const array = position.array
 
             for(let j = position.count / 2; j < position.count; j++){
-                array[j * 3 + 1] = origin[j] - sample[i]
+                array[j * 3 + 1] = origin[j] - buffer[i]
             }
 
             position.needsUpdate = true
         })
-    } 
+    }
+    createAudioBuffer({sample}){
+        const len = sample.length 
+        let temp = []
+
+        const xs = this.xs
+        const ys = sample
+        // ys[~~(len * start * smooth)] = 0
+        // ys[~~(len * start * smooth) + 1] = 0
+        // // ys[~~(len * start * smooth) + 2] = 0
+        // // ys[~~((len * start + len - 1) * smooth) - 1] = 0
+        // ys[~~((len * start + len - 1) * smooth)] = 0
+        // ys[~~((len * start + len - 1) * smooth) + 1] = 0
+        const spline = new Spline(xs, ys)
+        
+        for(let i = 0; i < len; i++){
+            temp.push(spline.at(i * this.param.smooth) * this.param.boost)
+        }
+
+        return temp
+    }
 }

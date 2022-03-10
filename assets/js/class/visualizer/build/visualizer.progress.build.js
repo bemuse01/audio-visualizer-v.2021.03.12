@@ -9,7 +9,7 @@ export default class{
         console.log(rtScene)
 
         this.param = {
-            radius: 25.8 + 0.6,
+            radius: 25.8,
             size: 2.0,
             seg: 1999,
             count: 80,
@@ -61,6 +61,7 @@ export default class{
         return new THREE.ShaderMaterial({
             vertexShader: Shader.vertex,
             fragmentShader: Shader.fragment,
+            // blending: THREE.AdditiveBlending,
             transparent: true,
             uniforms: {
                 opacity: {value: this.param.opacity}

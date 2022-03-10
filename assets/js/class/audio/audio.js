@@ -4,8 +4,8 @@ export default class{
     constructor(){
         this.param = {
             fft: 2 ** 14,
-            smoothingTimeConstant: 0.85,
-            src: 'assets/src/Mirage.mp3'
+            smoothingTimeConstant: 0.6,
+            src: 'assets/src/Fairytale.mp3'
         }
 
         this.start = true
@@ -49,7 +49,7 @@ export default class{
             source.connect(this.analyser)
             this.analyser.connect(this.context.destination)
             this.analyser.fftSize = this.param.fft
-            // this.analyser.smoothingTimeConstant = this.param.smoothingTimeConstant
+            this.analyser.smoothingTimeConstant = this.param.smoothingTimeConstant
             
             const bufferLength = this.analyser.frequencyBinCount
             
@@ -71,6 +71,10 @@ export default class{
         if(!this.analyser) return
 
         this.analyser.getByteFrequencyData(this.audioData)
+        
+        const len = this.audioData.length / 2
+        const half = [...this.audioData].slice(0, len)
+        this.audioDataAvg = half.map(e => e / 255).reduce((x, y) => x + y) / len
 
         // const start = Math.floor(1 / this.param.fps * this.context.sampleRate)
         // const sample = [...this.audioData.slice(start)]

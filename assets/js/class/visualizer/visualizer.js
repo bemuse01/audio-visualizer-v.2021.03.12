@@ -20,7 +20,7 @@ export default class{
             near: 0.1,
             far: 10000,
             pos: 100,
-            bloom: 2.5
+            bloom: 2
         }
 
         this.modules = {
@@ -163,11 +163,11 @@ export default class{
     }
     animateObject(app, audio){
         const {renderer} = app
-        const {audioData, currentTime, duration} = audio
+        const {audioData, audioDataAvg, currentTime, duration} = audio
 
         for(let i in this.comp){
             if(!this.comp[i] || !this.comp[i].animate) continue
-            this.comp[i].animate({renderer, audioData, currentTime, duration})
+            this.comp[i].animate({renderer, audioData, audioDataAvg, currentTime, duration})
         }
     }
 
