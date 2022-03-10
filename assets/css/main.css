@@ -1,26 +1,30 @@
-@font-face{
-    src: url('../font/NotoSans-ExtraLight.ttf');
-    font-family: notoLight;
+@font-face {
+    font-family: OpenSansRegular;
+    src: url('../font/OpenSans-Regular.ttf');
 }
 
 
 *{
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 body{
     background: black;
     overflow: hidden;
-}
-canvas{
     position: absolute;
-    top: 0;
-    left: 0;
 }
 div#wrap{
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
+}
+canvas#canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* filter: drop-shadow(0 0 10px #ffffff); */
 }
 
 
@@ -30,28 +34,46 @@ div.visualizer{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100vmin;
-    height: 100vmin;
+    width: 100vw;
+    height: 100vh;
 }
-div.visualizer-object{
-    position: absolute;
+div.visualizer-object-container{
     width: 100%;
     height: 100%;
 }
-div.visualizer-duration-wrap{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* color: #86ceff; */
-    color: white;
-    font-family: notoLight;
-    font-size: 8vmin;
-    letter-spacing: 0.5vmin;
-    user-select: none;
-    /* filter: drop-shadow(0px 0px 6px rgba(188, 228, 255, 0.75)); */
-    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.75));
+div.visualizer-object{
+    width: 100%;
+    height: 100%;
 }
-div.visualizer-duration-wrap span{
-    filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.75));
+
+
+/* progress */
+div.progress{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 40px;
+}
+div.progress-hover{
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.25);
+    transform: scaleY(0.1);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+
+}
+div.progress-bar{
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    background: white;
+    transform: scaleY(0.1);
+    transform-origin: bottom;
+    transition: transform 0.3s;
+}
+div.progress:hover > div{
+    transform: scaleY(0.4);
 }

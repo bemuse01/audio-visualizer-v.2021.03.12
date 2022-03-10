@@ -1,95 +1,52 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
 
-        
+        <!-- style -->
+        <link href="assets/css/main.css" rel="stylesheet" type="text/css">
+
+
         <!-- lib -->
         <script src="assets/js/lib/vue.min.js"></script>
-        <script src="assets/js/lib/three.min.r126.js"></script>
         <script src="assets/js/lib/windowing.js"></script>
-
-
-        <!-- postprocess -->
-        <script src="assets/js/postprocess/EffectComposer.js"></script>
-        <script src="assets/js/postprocess/RenderPass.js"></script>
-        <script src="assets/js/postprocess/ShaderPass.js"></script>
-        <script src="assets/js/postprocess/BloomPass.js"></script>
-        <script src="assets/js/postprocess/FilmPass.js"></script>
-        <script src="assets/js/postprocess/FilmShader.js"></script>
-        <script src="assets/js/postprocess/ConvolutionShader.js"></script>
-        <script src="assets/js/postprocess/CopyShader.js"></script>
-        <script src="assets/js/postprocess/FXAAShader.js"></script>
 
 
         <!-- const -->
         <script src="assets/js/const/const.js"></script>
 
 
-        <!-- method -->
-        <script src="assets/js/method/method.js"></script>
-
-
-        <!-- component -->
-        <script src="assets/js/component/component.js"></script>
-
-
-        <!-- application -->
-
-        <!-- app -->
-        <script src="assets/js/application/app/app.js"></script>
-        <script src="assets/js/application/app/app.build.js"></script>
-
-        <!-- audio -->
-        <script src="assets/js/application/audio/audio.js"></script>
-        <script src="assets/js/application/audio/audio.param.js"></script>
-        <script src="assets/js/application/audio/audio.method.js"></script>
-        <script src="assets/js/application/audio/audio.build.js"></script>
-
-
-        <!-- visualizer -->
-        <script src="assets/js/application/visualizer/visualizer.js"></script>
-        <!-- visualizer object bar -->
-        <script src="assets/js/application/visualizer/object/bar/visualizer.obj.bar.param.js"></script>
-        <script src="assets/js/application/visualizer/object/bar/visualizer.obj.bar.build.js"></script>
-        <!-- visualizer object back -->
-        <script src="assets/js/application/visualizer/object/back/visualizer.obj.back.param.js"></script>
-        <script src="assets/js/application/visualizer/object/back/visualizer.obj.back.shader.js"></script>
-        <script src="assets/js/application/visualizer/object/back/visualizer.obj.back.build.js"></script>
-        <!-- visualizer object progress -->
-        <script src="assets/js/application/visualizer/object/progress/visualizer.obj.progress.param.js"></script>
-        <script src="assets/js/application/visualizer/object/progress/visualizer.obj.progress.method.js"></script>
-        <script src="assets/js/application/visualizer/object/progress/visualizer.obj.progress.shader.js"></script>
-        <script src="assets/js/application/visualizer/object/progress/visualizer.obj.progress.build.js"></script>
-        <!-- visualizer object border -->
-        <script src="assets/js/application/visualizer/object/border/visualizer.obj.border.param.js"></script>
-        <script src="assets/js/application/visualizer/object/border/visualizer.obj.border.build.js"></script>
-        <!-- visualizer obect build -->
-        <script src="assets/js/application/visualizer/object/visualizer.obj.param.js"></script>
-        <script src="assets/js/application/visualizer/object/visualizer.obj.build.js"></script>
-        <!-- visualizer element build -->
-        <script src="assets/js/application/visualizer/element/visualizer.el.build.js"></script>
-
-
-        <!-- style -->
-        <link href="assets/css/main.css" rel="stylesheet" type="text/css">
+        <!-- object -->
+        <script src="assets/js/object/object.js"></script>
     </head>
     <body>
         <div id="wrap">
+
             <div id="object">
                 <canvas id="canvas"></canvas>
             </div>
+
             <div id="element">
-                <div class="visualizer">
-                    <div class="visualizer-object-wrap">
+
+                <div class="ui visualizer">
+                    <div class="visualizer-object-container">
                         <div class="visualizer-object"></div>
                     </div>
-                    <div class="visualizer-duration-wrap">
-                        <span>{{visualizerDuration}}</span>
-                    </div>
                 </div>
+                
+                <div 
+                    class="ui progress" 
+                    @mousemove="(e) => element.progress.group.hover.onMousemove(e)"
+                    @mouseleave="() => element.progress.group.hover.onMouseleave()"
+                    @click="(e) => onClickProgress(e)"
+                >
+                    <div class="progress-hover" :style="element.progress.group.hover.get()"></div>
+                    <div class="progress-bar" :style="element.progress.group.bar.get()"></div>
+                </div>
+
             </div>
+
         </div>
-        <script src="assets/js/main/main.js"></script>
+        <script src="assets/js/main.js" type="module"></script>
     </body>
 </html>

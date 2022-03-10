@@ -1,32 +1,35 @@
-THREE.RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
+import {
+	Color
+} from '../lib/three.module.js';
+import { Pass } from './Pass.js';
 
-	THREE.Pass.call( this );
+class RenderPass extends Pass {
 
-	this.scene = scene;
-	this.camera = camera;
+	constructor( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
 
-	this.overrideMaterial = overrideMaterial;
+		super();
 
-	this.clearColor = clearColor;
-	this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
+		this.scene = scene;
+		this.camera = camera;
 
-	this.clear = true;
-	this.clearDepth = false;
-	this.needsSwap = false;
-	this._oldClearColor = new THREE.Color();
+		this.overrideMaterial = overrideMaterial;
 
-};
+		this.clearColor = clearColor;
+		this.clearAlpha = ( clearAlpha !== undefined ) ? clearAlpha : 0;
 
-THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+		this.clear = true;
+		this.clearDepth = false;
+		this.needsSwap = false;
+		this._oldClearColor = new Color();
 
-	constructor: THREE.RenderPass,
+	}
 
-	render: function ( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
+	render( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
 
-		var oldAutoClear = renderer.autoClear;
+		const oldAutoClear = renderer.autoClear;
 		renderer.autoClear = false;
 
-		var oldClearAlpha, oldOverrideMaterial;
+		let oldClearAlpha, oldOverrideMaterial;
 
 		if ( this.overrideMaterial !== undefined ) {
 
@@ -73,4 +76,6 @@ THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 
 	}
 
-} );
+}
+
+export { RenderPass };

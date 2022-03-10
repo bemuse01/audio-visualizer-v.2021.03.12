@@ -1,39 +1,43 @@
-THREE.ShaderPass = function ( shader, textureID ) {
+import {
+	ShaderMaterial,
+	UniformsUtils
+} from '../lib/three.module.js';
+import { Pass, FullScreenQuad } from './Pass.js';
 
-	THREE.Pass.call( this );
+class ShaderPass extends Pass {
 
-	this.textureID = ( textureID !== undefined ) ? textureID : 'tDiffuse';
+	constructor( shader, textureID ) {
 
-	if ( shader instanceof THREE.ShaderMaterial ) {
+		super();
 
-		this.uniforms = shader.uniforms;
+		this.textureID = ( textureID !== undefined ) ? textureID : 'tDiffuse';
 
-		this.material = shader;
+		if ( shader instanceof ShaderMaterial ) {
 
-	} else if ( shader ) {
+			this.uniforms = shader.uniforms;
 
-		this.uniforms = THREE.UniformsUtils.clone( shader.uniforms );
+			this.material = shader;
 
-		this.material = new THREE.ShaderMaterial( {
+		} else if ( shader ) {
 
-			defines: Object.assign( {}, shader.defines ),
-			uniforms: this.uniforms,
-			vertexShader: shader.vertexShader,
-			fragmentShader: shader.fragmentShader
+			this.uniforms = UniformsUtils.clone( shader.uniforms );
 
-		} );
+			this.material = new ShaderMaterial( {
+
+				defines: Object.assign( {}, shader.defines ),
+				uniforms: this.uniforms,
+				vertexShader: shader.vertexShader,
+				fragmentShader: shader.fragmentShader
+
+			} );
+
+		}
+
+		this.fsQuad = new FullScreenQuad( this.material );
 
 	}
 
-	this.fsQuad = new THREE.Pass.FullScreenQuad( this.material );
-
-};
-
-THREE.ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
-
-	constructor: THREE.ShaderPass,
-
-	render: function ( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
+	render( renderer, writeBuffer, readBuffer /*, deltaTime, maskActive */ ) {
 
 		if ( this.uniforms[ this.textureID ] ) {
 
@@ -59,4 +63,6 @@ THREE.ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 
 	}
 
-} );
+}
+
+export { ShaderPass };
