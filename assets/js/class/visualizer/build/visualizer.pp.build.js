@@ -10,7 +10,7 @@ export default class{
         this.texture = renderTarget.texture
 
         this.param = {
-            exposure: 0.22
+            exposure: 0.25
         }
 
         this.init(group)
@@ -105,7 +105,7 @@ export default class{
     // animate
     animate({renderer, audioData, audioDataAvg}){
         if(audioData){
-            const exposure = audioDataAvg * 0.1
+            const exposure = audioDataAvg * 0.14
             this.effect.setUniform('exposure', this.param.exposure - exposure)
         }
 
