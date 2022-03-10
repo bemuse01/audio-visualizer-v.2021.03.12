@@ -8,7 +8,7 @@ export default class{
             count: 80,
             radius: 31,
             width: 1.6,
-            height: 0.4,
+            height: 1.2,
             seg: 19,
             solid: {
                 top: 180,
@@ -61,7 +61,7 @@ export default class{
 
         this.local.rotation.z = 120 * RADIAN
 
-        // group.add(this.local)
+        // group.add(this.local.clone())
         this.rtScene.add(this.local)
     }
     createGeometry(){
@@ -91,7 +91,8 @@ export default class{
         return new THREE.MeshBasicMaterial({
             color: color,
             transparent: true,
-            opacity: 1.0
+            opacity: 1.0,
+            // blending: THREE.AdditiveBlending
             // wireframe: true
         })
     }

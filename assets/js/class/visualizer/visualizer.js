@@ -5,13 +5,12 @@ import {RenderPass} from '../../postprocess/RenderPass.js'
 import {BloomPass} from '../../postprocess/BloomPass.js'
 import {ShaderPass} from '../../postprocess/ShaderPass.js'
 import {FXAAShader} from '../../postprocess/FXAAShader.js'
-import {VolumetericLightShader} from '../../postprocess/VolumetericLightShader.js'
-import {AdditiveBlendingShader} from '../../postprocess/AdditiveBlendingShader.js'
 
 import PublicMethod from '../../method/method.js'
 
 import BAR from './build/visualizer.bar.build.js'
 import PROGRESS from './build/visualizer.progress.build.js'
+import BORDER from './build/visualizer.border.build.js'
 import PP from './build/visualizer.pp.build.js'
 
 export default class{
@@ -28,6 +27,7 @@ export default class{
             // back: BACK,
             bar: BAR,
             progress: PROGRESS,
+            border: BORDER,
             pp: PP
         }
         this.group = {}
@@ -43,7 +43,7 @@ export default class{
         this.initGroup()
         this.initRenderObject()
         this.initRenderTarget()
-        // this.initComposer(app)
+        this.initComposer(app)
         this.create(app)
         this.add()
     }
@@ -102,14 +102,10 @@ export default class{
         this.fxaa = new ShaderPass(FXAAShader)
         this.fxaa.uniforms['resolution'].value.set(1 / (width * RATIO), 1 / (height * RATIO))
 
-        const volumePass = new ShaderPass(VolumetericLightShader)
-        volumePass.needsSwap = false
-
         this.composer.addPass(renderPass)
-        this.composer.addPass(volumePass)
-        // this.composer.addPass(bloomPass)
-        // this.composer.addPass(filmPass)
-        // this.composer.addPass(this.fxaa)
+        this.composer.addPass(bloomPass)
+        this.composer.addPass(filmPass)
+        this.composer.addPass(this.fxaa)
     }
 
 
@@ -147,23 +143,23 @@ export default class{
         app.renderer.setScissor(left, bottom, width, height)
         app.renderer.setViewport(left, bottom, width, height)
 
-        this.camera.lookAt(this.scene.position)
-        app.renderer.render(this.scene, this.camera)
+        // this.camera.lookAt(this.scene.position)
+        // app.renderer.render(this.scene, this.camera)
 
+        app.renderer.autoClear = false
+        app.renderer.clear()
+
+        this.camera.layers.set(PROCESS)
+        this.composer.render()
+
+        app.renderer.clearDepth()
+        this.camera.layers.set(NORMAL)
+        app.renderer.render(this.scene, this.camera)
+        
         app.renderer.setRenderTarget(this.renderTarget)
         app.renderer.clear()
         app.renderer.render(this.rtScene, this.rtCamera)
         app.renderer.setRenderTarget(null)
-
-        // app.renderer.autoClear = false
-        // app.renderer.clear()
-
-        // this.camera.layers.set(PROCESS)
-        // this.composer.render()
-
-        // app.renderer.clearDepth()
-        // this.camera.layers.set(NORMAL)
-        // app.renderer.render(this.scene, this.camera)
     }
     animateObject(app, audio){
         const {renderer} = app

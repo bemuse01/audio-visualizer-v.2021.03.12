@@ -10,7 +10,7 @@ export default class{
         this.texture = renderTarget.texture
 
         this.param = {
-            exposure: 0.3
+            exposure: 0.2
         }
 
         this.init(group)
@@ -50,7 +50,7 @@ export default class{
                 vertexShader: Shader.effect.vertex,
                 fragmentShader: Shader.effect.fragment,
                 transparent: true,
-                blending: THREE.AdditiveBlending,
+                // blending: THREE.AdditiveBlending,
                 uniforms: {
                     // uRes: {value: new THREE.Vector2(this.size.el.w, this.size.el.h)},
                     tDiffuse: {value: this.texture},
@@ -62,7 +62,7 @@ export default class{
                     // density: {value: 0.8},
                     density: {value: 0.6},
                     weight: {value: 0.4},
-                    samples: {value: 50}
+                    samples: {value: 60}
                 }
             }
         })

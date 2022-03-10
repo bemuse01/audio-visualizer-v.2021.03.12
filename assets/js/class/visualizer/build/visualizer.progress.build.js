@@ -14,10 +14,10 @@ export default class{
             seg: 1999,
             count: 80,
             solid: {
-                // top: 180,
-                // bottom: 290
-                top: 200,
-                bottom: 270
+                top: 180,
+                bottom: 290
+                // top: 200,
+                // bottom: 270
             },
             opacity: 0.9,
             step: 3
@@ -43,9 +43,9 @@ export default class{
         this.mesh = new THREE.Mesh(geometry, material)
         this.mesh.rotation.z = 90 * RADIAN
         this.mesh.scale.set(1, -1, 1)
-        // this.mesh.layers.set(PROCESS)
+        this.mesh.layers.set(PROCESS)
 
-        // group.add(this.mesh)
+        group.add(this.mesh)
         // this.rtScene.add(this.mesh)
     }
     createGeometry(){
