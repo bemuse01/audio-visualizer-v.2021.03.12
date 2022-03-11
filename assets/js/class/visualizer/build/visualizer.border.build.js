@@ -4,9 +4,7 @@ import Method from '../method/visualizer.progress.method.js'
 import Shader from '../shader/visualizer.progress.shader.js'
 
 export default class{
-    constructor({group, rtScene}){
-        this.rtScene = rtScene
-
+    constructor({group}){
         this.param = {
             radius: 25.1,
             size: {
@@ -53,7 +51,6 @@ export default class{
         }
 
         group.add(this.local)
-        // this.rtScene.add(this.local)
     }
     createMesh(key){
         const geometry = this.createGeometry(key)

@@ -3,11 +3,7 @@ import Method from '../method/visualizer.progress.method.js'
 import Shader from '../shader/visualizer.progress.shader.js'
 
 export default class{
-    constructor({group, rtScene}){
-        this.rtScene = rtScene
-
-        console.log(rtScene)
-
+    constructor({group}){
         this.param = {
             radius: 25.8,
             size: 2.0,
@@ -46,7 +42,6 @@ export default class{
         this.mesh.layers.set(PROCESS)
 
         group.add(this.mesh)
-        // this.rtScene.add(this.mesh)
     }
     createGeometry(){
         const geometry = new THREE.RingGeometry(this.param.radius, this.param.radius + this.param.size, this.param.seg)

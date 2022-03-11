@@ -2,6 +2,18 @@
     font-family: OpenSansRegular;
     src: url('../font/OpenSans-Regular.ttf');
 }
+@font-face {
+    font-family: NotoSansLight;
+    src: url('../font/NotoSans-Light.ttf');
+}
+@font-face {
+    font-family: HubballiRegular;
+    src: url('../font/Hubballi-Regular.ttf');
+}
+@font-face {
+    font-family: NotoSansDisplayLight;
+    src: url('../font/NotoSansDisplay-Light.ttf');
+}
 
 
 *{

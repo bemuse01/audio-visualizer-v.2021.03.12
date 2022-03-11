@@ -2,8 +2,8 @@ import * as THREE from '../../../lib/three.module.js'
 import Spline from '../../../lib/cubic-spline.js'
 
 export default class{
-    constructor({group, rtScene}){
-        this.rtScene = rtScene
+    constructor({group, rtScenes}){
+        this.rtScene = rtScenes[0]
 
         this.param = {
             count: 80,

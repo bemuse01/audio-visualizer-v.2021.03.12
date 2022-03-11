@@ -11,6 +11,7 @@ import PublicMethod from '../../method/method.js'
 import BAR from './build/visualizer.bar.build.js'
 import PROGRESS from './build/visualizer.progress.build.js'
 import BORDER from './build/visualizer.border.build.js'
+import TIME from './build/visualizer.time.build.js'
 import PP from './build/visualizer.pp.build.js'
 
 export default class{
@@ -28,6 +29,7 @@ export default class{
             bar: BAR,
             progress: PROGRESS,
             border: BORDER,
+            time: TIME,
             pp: PP
         }
         this.group = {}
@@ -77,13 +79,21 @@ export default class{
     initRenderTarget(){
         const {w, h} = this.size.el
 
-        this.renderTarget = new THREE.WebGLRenderTarget(w, h, {format: THREE.RGBAFormat})
-        this.renderTarget.samples = 2048
+        this.renderTargets = [
+            new THREE.WebGLRenderTarget(w, h, {format: THREE.RGBAFormat}),
+            new THREE.WebGLRenderTarget(w, h, {format: THREE.RGBAFormat}),
+        ]
+
+        this.renderTargets[0].samples = 2048
+        this.renderTargets[1].samples = 2048
+
+        this.rtScenes = [
+            new THREE.Scene(),
+            new THREE.Scene(),
+        ]
 
         this.rtCamera = new THREE.PerspectiveCamera(this.param.fov, w / h, this.param.near, this.param.far)
         this.rtCamera.position.z = this.param.pos
-
-        this.rtScene = new THREE.Scene()
     }
     initComposer(app){
         const {right, left, bottom, top} = this.element.getBoundingClientRect()
@@ -123,7 +133,7 @@ export default class{
             const instance = this.modules[module]
             const group = this.group[module]
 
-            this.comp[module] = new instance({group, size: this.size, ...this.comp, renderTarget: this.renderTarget, rtScene: this.rtScene})
+            this.comp[module] = new instance({group, size: this.size, ...this.comp, renderTargets: this.renderTargets, rtScenes: this.rtScenes})
         }
     }
 
@@ -156,10 +166,12 @@ export default class{
         this.camera.layers.set(NORMAL)
         app.renderer.render(this.scene, this.camera)
         
-        app.renderer.setRenderTarget(this.renderTarget)
-        app.renderer.clear()
-        app.renderer.render(this.rtScene, this.rtCamera)
-        app.renderer.setRenderTarget(null)
+        for(let i = 0; i < this.renderTargets.length; i++){
+            app.renderer.setRenderTarget(this.renderTargets[i])
+            app.renderer.clear()
+            app.renderer.render(this.rtScenes[i], this.rtCamera)
+            app.renderer.setRenderTarget(null)
+        }
     }
     animateObject(app, audio){
         const {renderer} = app
