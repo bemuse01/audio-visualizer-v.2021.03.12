@@ -1,5 +1,6 @@
 import * as THREE from '../../../lib/three.module.js'
 import Plane from '../../objects/plane.js'
+import Shader from '../shader/visualizer.time.shader.js'
 
 export default class{
     constructor({size, rtScenes}){
@@ -41,14 +42,15 @@ export default class{
             widthSeg: 1,
             heightSeg: 1,
             materialOpt: {
-                map: this.texture,
-                transparent: true
-                // vertexShader: Shader.effect.vertex,
-                // fragmentShader: Shader.effect.fragment,
-                // transparent: true,
-                // // blending: THREE.AdditiveBlending,
-                // uniforms: {
-                // }
+                // map: this.texture,
+                // transparent: true
+                vertexShader: Shader.vertex,
+                fragmentShader: Shader.fragment,
+                transparent: true,
+                // blending: THREE.AdditiveBlending,
+                uniforms: {
+                    uTexture: {value: this.texture}
+                }
             }
         })
 
