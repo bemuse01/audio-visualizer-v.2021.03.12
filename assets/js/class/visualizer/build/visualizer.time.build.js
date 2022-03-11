@@ -13,7 +13,7 @@ export default class{
             planeWidth: 50,
             planeHeight: 50,
             font: 'NotoSansDisplayLight',
-            fontSize: '140px',
+            fontSize: '150px',
             fontColor: '#ffffff'
         }
     
@@ -47,7 +47,7 @@ export default class{
                 vertexShader: Shader.vertex,
                 fragmentShader: Shader.fragment,
                 transparent: true,
-                // blending: THREE.AdditiveBlending,
+                blending: THREE.AdditiveBlending,
                 uniforms: {
                     uTexture: {value: this.texture}
                 }
