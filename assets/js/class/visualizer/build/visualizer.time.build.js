@@ -7,11 +7,18 @@ export default class{
         this.size = size
         this.rtScene = rtScenes[1]
 
+        const {w, h} = size.obj
+        const min = Math.min(w, h)
+
+        console.log(50 / min)
+
         this.param = {
             width: 500,
             height: 500,
-            planeWidth: 50,
-            planeHeight: 50,
+            // planeWidth: 50,
+            planeWidth: min * 0.433,
+            // planeHeight: 50,
+            planeHeight: min * 0.433,
             font: 'NotoSansDisplayLight',
             fontSize: '150px',
             fontColor: '#ffffff'

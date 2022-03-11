@@ -4,12 +4,20 @@ import Method from '../method/visualizer.progress.method.js'
 import Shader from '../shader/visualizer.progress.shader.js'
 
 export default class{
-    constructor({group}){
+    constructor({group, size}){
+        this.size = size
+
+        const {w, h} = size.obj
+        const min = Math.min(w, h)
+
         this.param = {
-            radius: 25.1,
+            // radius: 25.1,
+            radius: min * 0.2175,
             size: {
-                thin: 0.5,
-                thick: 2.8
+                // thin: 0.5,
+                thin: min * 0.004,
+                // thick: 2.8
+                thick: min * 0.0245
             },
             seg: 239,
             count: 80,

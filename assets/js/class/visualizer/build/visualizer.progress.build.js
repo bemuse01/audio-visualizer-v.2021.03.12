@@ -3,10 +3,17 @@ import Method from '../method/visualizer.progress.method.js'
 import Shader from '../shader/visualizer.progress.shader.js'
 
 export default class{
-    constructor({group}){
+    constructor({group, size}){
+        this.size = size
+
+        const {w, h} = size.obj
+        const min = Math.min(w, h)
+
         this.param = {
-            radius: 25.8,
-            size: 2.0,
+            // radius: 25.8,
+            radius: min * 0.2234,
+            // size: 2.0,
+            size: min * 0.0173,
             seg: 1999,
             count: 80,
             solid: {

@@ -2,14 +2,21 @@ import * as THREE from '../../../lib/three.module.js'
 import Spline from '../../../lib/cubic-spline.js'
 
 export default class{
-    constructor({group, rtScenes}){
+    constructor({group, size, rtScenes}){
+        this.size = size
         this.rtScene = rtScenes[0]
+
+        const {w, h} = size.obj
+        const min = Math.min(w, h)
 
         this.param = {
             count: 80,
-            radius: 29.5,
-            width: 1.6,
-            height: 1.2,
+            // radius: 29.5,
+            radius: min * 0.25,
+            // width: 1.6,
+            width: min * 0.014,
+            // height: 1.2,
+            height: min * 0.010,
             seg: 19,
             solid: {
                 top: 180,
