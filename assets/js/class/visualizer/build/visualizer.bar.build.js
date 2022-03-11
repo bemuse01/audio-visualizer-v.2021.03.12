@@ -15,7 +15,8 @@ export default class{
                 top: 180,
                 bottom: 290
             },
-            audioStep: 100,
+            offset: 300,
+            audioStep: 80,
             step: 3,
             smooth: 0.2,
             boost: 30
@@ -108,7 +109,7 @@ export default class{
     animate({audioData}){
         if(!audioData) return
 
-        const sample = Array.from({length: this.param.count}, (_, i) => audioData[i * this.param.audioStep]).map(e => e / 255)
+        const sample = Array.from({length: this.param.count}, (_, i) => audioData[this.param.offset + i * this.param.audioStep]).map(e => e / 255)
         const buffer = this.createAudioBuffer({sample})
 
         this.local.children.forEach((mesh, i) => {
