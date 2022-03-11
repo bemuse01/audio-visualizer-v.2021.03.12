@@ -12,7 +12,7 @@ export default class{
             planeWidth: 50,
             planeHeight: 50,
             font: 'NotoSansDisplayLight',
-            fontSize: '120px',
+            fontSize: '140px',
             fontColor: '#ffffff'
         }
     
