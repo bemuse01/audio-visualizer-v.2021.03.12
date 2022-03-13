@@ -26,7 +26,8 @@ export default class{
             audioStep: 80,
             step: 3,
             smooth: 0.2,
-            boost: 30
+            // boost: 30
+            boost: min * 0.251
         }
 
         this.xs = Array.from({length: this.param.count}, (_, i) => i * 1)
